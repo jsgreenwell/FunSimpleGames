@@ -16,6 +16,7 @@ public class Main {
                         3: Scramble
                         4: TicTacToe
                         5: Wheel
+                        6: BlackJack
                         9: Exit
                     Enter the number of your selection:
                     """);
