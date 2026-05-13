@@ -17,6 +17,9 @@ public class TicTacToe {
         initialBoard();
     }
 
+    /**
+     * Establishes the board on the screen
+     */
     public void initialBoard() {
         for (int row = 1; row < 4; row++) {
             for (int col = 1; col < 4; col++) {
@@ -25,6 +28,9 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * Displays the board to the players
+     */
     public void displayBoard() {
         System.out.println();
 
@@ -37,6 +43,13 @@ public class TicTacToe {
         System.out.println();
     }
 
+    /**
+     *
+     * @param row assigns a number to the row
+     * @param col assigns a number to each column
+     * @param symbol creates a symbol to be played
+     * @return
+     */
     public boolean doingMove(int row, int col, char symbol) {
 
         if (row < 1 || row > 3 || col < 1 || col > 3) {
@@ -50,6 +63,11 @@ public class TicTacToe {
         return true;
     }
 
+    /**
+     *
+     * @param symbol makes a character to be played
+     * @return
+     */
     public boolean winner(char symbol) {
         for (int row = 0; row < 3; row++) {
             if (board[row][1] == symbol &&
@@ -78,6 +96,10 @@ public class TicTacToe {
         return false;
     }
 
+    /**
+     *
+     * @return checkes to see if the board is full
+     */
     public boolean isFull() {
         for (int row = 1; row < 4; row++) {
             for (int col = 1; col < 4; col++) {
@@ -89,6 +111,9 @@ public class TicTacToe {
         return true;
     }
 
+    /**
+     * resets the board if the player wants to keep playing
+     */
     public void resetBoard(){
         for (int row = 1; row < 4; row++) {
             for (int col = 1; col < 4; col++) {
@@ -99,8 +124,7 @@ public class TicTacToe {
 
 
     /**
-     * Runs the main game loop - calling other functions as needed.
-     * You will create this as for now it just prints out - TBD.
+     * Runs the game
      */
     public void run() {
 
@@ -155,7 +179,6 @@ public class TicTacToe {
     /**
      * Asks the player if they want to exit or keep playing
      * If they want to exit - change keepPlaying flag (variable) to false.
-     * For now just changes flog so this can exit
      */
     public void checkExit() {
         Scanner scan = new Scanner(System.in);
