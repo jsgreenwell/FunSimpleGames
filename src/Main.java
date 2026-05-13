@@ -65,6 +65,13 @@ public class Main {
                         wheel.checkExit();
                     }
                     break;
+                case 6:
+                    BlackJack blackJack = new BlackJack();
+                    while (blackJack.keepPlaying) {
+                        blackJack.run();
+                        blackJack.checkExit();
+                    }
+                    break;
                 default:
                     System.out.println("Thanks for playing!\nGoodbye!");
                     choice = 9; // set to exit
