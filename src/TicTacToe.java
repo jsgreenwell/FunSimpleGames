@@ -12,14 +12,14 @@ public class TicTacToe {
     private String player2;
 
     public TicTacToe() {
-        board = new char[3][3];
+        board = new char[4][4];
         moves = new ArrayList<String>();
         initialBoard();
     }
 
     public void initialBoard() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for (int row = 1; row < 4; row++) {
+            for (int col = 1; col < 4; col++) {
                 board[row][col] = '-';
             }
         }
@@ -28,8 +28,8 @@ public class TicTacToe {
     public void displayBoard() {
         System.out.println();
 
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for (int row = 1; row < 4; row++) {
+            for (int col = 1; col < 4; col++) {
                 System.out.print(board[row][col] + " ");
             }
             System.out.println();
@@ -39,7 +39,7 @@ public class TicTacToe {
 
     public boolean doingMove(int row, int col, char symbol) {
 
-        if (row < 0 || row > 2 || col < 0 || col > 2) {
+        if (row < 1 || row > 3 || col < 1 || col > 3) {
             return false;
         }
         if (board[row][col] != '-') {
@@ -50,43 +50,51 @@ public class TicTacToe {
         return true;
     }
 
-    public boolean winner(char symbol){
+    public boolean winner(char symbol) {
         for (int row = 0; row < 3; row++) {
-            if(board[row][0] == symbol &&
-                board[row][1] == symbol &&
-                board[row][2] == symbol) {
+            if (board[row][1] == symbol &&
+                    board[row][2] == symbol &&
+                    board[row][3] == symbol) {
                 return true;
             }
         }
-        for (int col = 0; col < 3; col++) {
-            if (board[0][col] == symbol &&
-                    board[1][col] == symbol &&
-                    board[2][col] == symbol) {
+        for (int col = 1; col < 4; col++) {
+            if (board[1][col] == symbol &&
+                    board[2][col] == symbol &&
+                    board[3][col] == symbol) {
                 return true;
             }
-            if (board[0][0] == symbol &&
-                board[1][1] == symbol &&
-                board[2][2] == symbol) {
+            if (board[1][1] == symbol &&
+                    board[2][2] == symbol &&
+                    board[3][3] == symbol) {
                 return true;
             }
-            if (board[0][2] == symbol &&
-                board[1][1] == symbol &&
-                board[2][0] == symbol) {
+            if (board[1][3] == symbol &&
+                    board[2][2] == symbol &&
+                    board[3][1] == symbol) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isFull(){
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+    public boolean isFull() {
+        for (int row = 1; row < 4; row++) {
+            for (int col = 1; col < 4; col++) {
                 if (board[row][col] == '-') {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    public void resetBoard(){
+        for (int row = 1; row < 4; row++) {
+            for (int col = 1; col < 4; col++) {
+                board[row][col] = '-';
+            }
+        }
     }
 
 
@@ -107,15 +115,15 @@ public class TicTacToe {
         char currentSymbol = 'X';
         String currentPlayer = player1;
 
-        while (true){
+        while (true) {
             displayBoard();
 
-            System.out.println(currentPlayer + "turn.");
+            System.out.println(currentPlayer + " turn.");
 
-            System.out.print("Enter row (0-2): ");
+            System.out.print("Enter row (1-3): ");
             int row = scan.nextInt();
 
-            System.out.print("Enter column (0-2): ");
+            System.out.print("Enter column (1-3): ");
             int col = scan.nextInt();
 
             boolean valid = doingMove(row, col, currentSymbol);
@@ -124,12 +132,12 @@ public class TicTacToe {
                 continue;
             }
 
-            if (winner(currentSymbol)){
+            if (winner(currentSymbol)) {
                 displayBoard();
-                System.out.println(currentPlayer + "won.");
+                System.out.println(currentPlayer + " won.");
                 break;
             }
-            if (isFull()){
+            if (isFull()) {
                 displayBoard();
                 System.out.println("Tie");
                 break;
@@ -137,12 +145,11 @@ public class TicTacToe {
             if (currentSymbol == 'X') {
                 currentSymbol = 'O';
                 currentPlayer = player2;
-            } else  {
+            } else {
                 currentSymbol = 'X';
                 currentPlayer = player1;
             }
         }
-        scan.close();
     }
 
     /**
@@ -153,13 +160,15 @@ public class TicTacToe {
     public void checkExit() {
         Scanner scan = new Scanner(System.in);
 
-        System.out.print("Do you want to keep playing? (yes/no: ");
+        System.out.print("Do you want to keep playing? (yes/no:) ");
         String choice = scan.nextLine().toLowerCase();
 
-        if (choice.equals("no")){
-            keepPlaying = false;
-            System.out.println("Thanks");
+        if (choice.equals("yes")) {
+            keepPlaying = true;
+            System.out.println("Lets play again.");
+            resetBoard();
         } else {
-        keepPlaying = true;
+            keepPlaying = false;
+        }
     }
 }
