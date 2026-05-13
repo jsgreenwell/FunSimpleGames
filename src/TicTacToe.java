@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TicTacToe {
     // Boolean variable which is true until player wants to quit
@@ -68,7 +69,24 @@ public class TicTacToe {
                 board[2][2] == symbol) {
                 return true;
             }
+            if (board[0][2] == symbol &&
+                board[1][1] == symbol &&
+                board[2][0] == symbol) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    public boolean isFull(){
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board[row][col] == '-') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -77,7 +95,54 @@ public class TicTacToe {
      * You will create this as for now it just prints out - TBD.
      */
     public void run() {
-        System.out.println("Tic Tac Toe - TBD");
+
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Player 1: ");
+        player1 = scan.nextLine();
+
+        System.out.print("Player 2: ");
+        player2 = scan.nextLine();
+
+        char currentSymbol = 'X';
+        String currentPlayer = player1;
+
+        while (true){
+            displayBoard();
+
+            System.out.println(currentPlayer + "turn.");
+
+            System.out.print("Enter row (0-2): ");
+            int row = scan.nextInt();
+
+            System.out.print("Enter column (0-2): ");
+            int col = scan.nextInt();
+
+            boolean valid = doingMove(row, col, currentSymbol);
+            if (!valid) {
+                System.out.println("Invalid move.");
+                continue;
+            }
+
+            if (winner(currentSymbol)){
+                displayBoard();
+                System.out.println(currentPlayer + "won.");
+                break;
+            }
+            if (isFull()){
+                displayBoard();
+                System.out.println("Tie");
+                break;
+            }
+            if (currentSymbol == 'X') {
+                currentSymbol = 'O';
+                currentPlayer = player2;
+            } else  {
+                currentSymbol = 'X';
+                currentPlayer = player1;
+            }
+        }
+        scan.close();
     }
 
     /**
@@ -86,6 +151,15 @@ public class TicTacToe {
      * For now just changes flog so this can exit
      */
     public void checkExit() {
-        keepPlaying = false;
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Do you want to keep playing? (yes/no: ");
+        String choice = scan.nextLine().toLowerCase();
+
+        if (choice.equals("no")){
+            keepPlaying = false;
+            System.out.println("Thanks");
+        } else {
+        keepPlaying = true;
     }
 }
