@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class TicTacToe {
 
     public TicTacToe() {
         board = new char[4][4];
-        moves = new ArrayList<String>();
+        moves = new ArrayList<>();
         initialBoard();
     }
 
@@ -144,11 +145,23 @@ public class TicTacToe {
 
             System.out.println(currentPlayer + " turn.");
 
-            System.out.print("Enter row (1-3): ");
-            int row = scan.nextInt();
+            int row = -1;
+            int col = -1;
+            try{
+                System.out.print("Enter row (1-3): ");
+                row = scan.nextInt();
 
-            System.out.print("Enter column (1-3): ");
-            int col = scan.nextInt();
+                System.out.print("Enter column (1-3): ");
+                col = scan.nextInt();
+
+                scan.nextLine();
+            }
+            catch (InputMismatchException e){
+                System.out.println("Invalid input. Please try again.");
+                scan.nextLine();
+                continue;
+            }
+
 
             boolean valid = doingMove(row, col, currentSymbol);
             if (!valid) {
